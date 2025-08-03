@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id ("net.serenity-bdd.serenity-gradle-plugin") version("4.0.12")
+}
+
+group 'co.com.choucair.automation.android'
+version '1.0-SNAPSHOT'
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://pkgs.dev.azure.com/DEV-FormacionCH/f11a2ddb-f565-44a3-8710-e9e1472d29ee/_packaging/Choucair/maven/v1'
+    }
+    mavenLocal()
+}
+
+ext{
+    serenityVersion = '4.0.12'
+}
+
+dependencies {
+    testImplementation group: 'junit', name: 'junit', version: '4.13.1'
+    testImplementation 'org.assertj:assertj-core:3.22.0'
+    testImplementation 'org.slf4j:slf4j-simple:2.0.5'
+    testImplementation "net.serenity-bdd:serenity-core:$rootProject.ext.serenityVersion"
+    testImplementation "net.serenity-bdd:serenity-junit:$rootProject.ext.serenityVersion"
+    implementation "net.serenity-bdd:serenity-screenplay:$rootProject.ext.serenityVersion"
+    implementation "net.serenity-bdd:serenity-cucumber:$rootProject.ext.serenityVersion"
+    implementation group: 'io.appium', name: 'java-client', version: '8.5.1'
+}
+
+test {
+    useJUnitPlatform()
+    useJUnit {
+        include "**/*"
+        gradle.startParameter.continueOnFailure = false
+        testLogging.showStandardStreams = false
+        systemProperties System.getProperties()
+        systemProperties project.properties.subMap(["appiumhub"])
+        systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
+    }
+
+}
+
+test.finalizedBy(aggregate)
