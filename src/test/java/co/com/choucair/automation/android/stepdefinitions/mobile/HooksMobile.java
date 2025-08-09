@@ -17,7 +17,7 @@ public class HooksMobile {
     @Before()
     public void setUpMobile() {
         OnStage.setTheStage(new OnlineCast());
-        DriverAndroid.setUpAppium(OnStage.theActorCalled("Maria"));
+       // DriverAndroid.setUpAppium(OnStage.theActorCalled("Maria"));
     }
 
 }

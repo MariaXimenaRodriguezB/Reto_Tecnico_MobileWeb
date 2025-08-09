@@ -1,4 +1,4 @@
-package co.com.choucair.automation.android.utils.drivers;
+package co.com.choucair.automation.android.utils;
 
 public class EnvironmentConstants {
 
