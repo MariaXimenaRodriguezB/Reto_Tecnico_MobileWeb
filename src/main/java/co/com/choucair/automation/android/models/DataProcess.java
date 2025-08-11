@@ -1,6 +1,6 @@
 package co.com.choucair.automation.android.models;
 
-public class TblDataProcess {
+public class DataProcess {
 
     private String numberOne;
     public String getNumberOne() {
